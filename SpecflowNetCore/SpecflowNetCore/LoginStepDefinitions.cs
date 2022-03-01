@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using SpecflowNetCore.Drivers;
@@ -33,21 +34,21 @@ namespace SpecflowNetCore
         [Given(@"I enter the following details")]
         public void GivenIEnterTheFollowingDetails(Table table)
         {
-            dynamic data = table.Rows;
+            dynamic data = table.Rows[0];
             
-            loginPage.Login((string)data.UserName, (string)data.Password);
+            loginPage.Login((string)data["UserName"], (string)data["Password"]);
         }
 
         [Given(@"I click login button")]
         public void GivenIClickLoginButton()
         {
-            throw new PendingStepException();
+            loginPage.ClickLoginButton();
         }
 
         [Then(@"I should see Employee details link")]
         public void ThenIShouldSeeEmployeeDetailsLink()
         {
-            throw new PendingStepException();
+            Assert.That(loginPage.IsEmployeeDetailsExist, Is.True);
         }
     }
 }
